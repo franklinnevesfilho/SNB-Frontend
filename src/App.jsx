@@ -1,33 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import {Route, Routes} from "react-router-dom";
+import ConfirmationPage from "./pages/ConfirmationPage.jsx";
+
+const API_URL = import.meta.env.VITE_API_URL
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  //   global call api function that takes in necessary arguments for whatever is needed
+    const callAPI = async (path, method, headers, body, callback) => {
+        const response = await fetch('http://' + API_URL + path, {
+            method: method,
+            headers: headers,
+            body: JSON.stringify(body)
+        })
+        const json = await response.json()
+        callback(json)
+    }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <Routes>
+            {/*a route with an empty path that contains LoginPage component that uses the function callAPI*/}
+            <Route path="/" element={<LoginPage apiCall={callAPI}/>} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />
+            { /* TODO: 404 page */ }
+            <Route path={'*'} element={<h1>Page not found</h1>} />
+        </Routes>
     </>
   )
 }

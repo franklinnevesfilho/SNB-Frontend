@@ -5,6 +5,30 @@
   text-align: center;
 }
 
+.item-form{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.login-btn-container{
+  display: flex;
+  justify-content: end;
+}
+.btn{
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.form-container{
+  background-color: #050505;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
 .card{
   width: 30rem;
   border: 5px solid transparent;

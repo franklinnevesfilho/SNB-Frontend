@@ -1,14 +1,18 @@
 import { useState } from "react";
 import Image from "../assets/signupimg.png";
-import { BiSolidLock, BiUserCircle } from "react-icons/bi";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { BiSolidLock, BiSolidUserDetail, BiUserCircle } from "react-icons/bi";
+import { AiFillCalendar, AiFillEye, AiFillEyeInvisible, AiOutlineCalendar, AiTwotoneCalendar } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
+import { FiEdit2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const SignUp = ({ apiCall }) => {
   const [togglepass, settogglepass] = useState(false);
   const [toggleconpass, settoggleconpass] = useState(false);
 
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [dob, setdob] = useState("");
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -21,7 +25,7 @@ const SignUp = ({ apiCall }) => {
         "/auth/register",
         "POST",
         { "Content-Type": "application/json" },
-        { username, email, password },
+        {firstname, lastname, dob, username, email, password },
         (r) => console.log(r)
       );
     }
@@ -30,7 +34,7 @@ const SignUp = ({ apiCall }) => {
   return (
     <div className="w-full h-screen flex flex-col items-center ">
       <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-full flex flex-col items-center gap-4">
-        <div className="w-[90%] md:w-full h-[30%] relative flex flex-col items-center">
+        <div className="w-[90%] md:w-full h-[25%] relative flex flex-col items-center">
           <div className="w-full h-[90%] card-gradient rounded-ee-[8vmax] rounded-es-[8vmax]">
             {" "}
           </div>
@@ -40,9 +44,53 @@ const SignUp = ({ apiCall }) => {
           </div>
         </div>
 
-        <form className="w-[80%] flex-grow flex flex-col gap-2 md:gap-[1.5vmin] pt-[2vmax]">
-          <div className="text-[2.5vmax] font-[800] mb-2"> Sign Up </div>
-          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.6vmax] pl-4">
+        <form className="w-[80%] flex-grow flex flex-col gap-2 md:gap-[1.5vmin] pt-[1vmax]">
+          <div className="text-[2.5vmax] font-[800] mb-1"> Sign Up </div>
+
+
+        {/* Add Firstname , lastname and date of birth block start here ---------------------- */}
+
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
+            <BiSolidUserDetail className="text-[1.7vmax] text-slate-400" />
+            <input
+              className="flex-grow border-none bg-transparent outline-none "
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => {
+                setfirstname(e.target.value);
+              }}
+              value={firstname}
+            />
+          </div>
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
+            <BiSolidUserDetail className="text-[1.7vmax] text-slate-400" />
+            <input
+              className="flex-grow border-none bg-transparent outline-none "
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => {
+                setlastname(e.target.value);
+              }}
+              value={lastname}
+            />
+          </div>
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
+            <AiTwotoneCalendar className="text-[1.7vmax] text-slate-400" />
+            <input
+              className="flex-grow border-none bg-transparent outline-none "
+              type="date"
+              onChange={(e) => {
+                setdob(e.target.value);
+              }}
+              value={dob}
+            />
+          </div>
+
+        {/*  block End here ---------------------- */}
+
+
+
+          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
             <BiUserCircle className="text-[2vmax] text-slate-400" />
             <input
               className="flex-grow border-none bg-transparent outline-none "
@@ -54,7 +102,7 @@ const SignUp = ({ apiCall }) => {
               value={username}
             />
           </div>
-          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.6vmax] pl-4">
+          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
             <IoIosMail className="text-[2vmax] text-slate-400" />
             <input
               className="flex-grow border-none bg-transparent outline-none "
@@ -66,7 +114,7 @@ const SignUp = ({ apiCall }) => {
               value={email}
             />
           </div>
-          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.6vmax]  px-4">
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax]  px-4">
             <BiSolidLock className="text-[2vmax] text-slate-400" />
             <input
               className="flex-grow border-none bg-transparent outline-none "
@@ -93,7 +141,7 @@ const SignUp = ({ apiCall }) => {
               />
             )}
           </div>
-          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.6vmax]  px-4">
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax]  px-4">
             <BiSolidLock className="text-[2vmax] text-slate-400" />
             <input
               className="flex-grow border-none bg-transparent outline-none "
@@ -135,7 +183,7 @@ const SignUp = ({ apiCall }) => {
 
           <button
             onClick={registrationRequest}
-            className="w-full card-gradient font-bold text-white text-[1.3vmax] rounded-full p-3 md:p-[0.6vmax]"
+            className="w-full card-gradient font-bold text-white text-[1.3vmax] rounded-full p-3 md:p-[0.4vmax]"
           >
             SignUp
           </button>

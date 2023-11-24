@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ForgetPass from './pages/ForgetPass';
 import ResetPass from './pages/ResetPass';
+import SinglePage from './pages/SinglePage.jsx';
+import Checkout from './pages/Checkout.jsx';
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -34,6 +36,14 @@ function App() {
             <Route path="/forget" element={<ForgetPass apiCall={callAPI}/>} />
             <Route path="/reset" element={<ResetPass   apiCall={callAPI}/>} />
             <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />
+ 
+
+            {/* single item page */}
+            <Route path="/singlepage" element={<SinglePage />} />
+            {/* checkout page */}
+            <Route path="/checkout" element={<Checkout/>} />
+
+            
             { /* TODO: 404 page */ }
             <Route path={'*'} element={<h1>Page not found</h1>} />
         </Routes>

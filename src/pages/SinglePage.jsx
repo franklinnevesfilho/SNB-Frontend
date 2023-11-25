@@ -16,14 +16,14 @@ const SinglePage = () => {
           Virtual Mineral Box Identification Lab Kit, Properties of Minerals
           Practice
         </div>
-        <div className="text-yellow-300 text-[2vmax] flex items-center">
+        {/* <div className="text-yellow-300 text-[2vmax] flex items-center">
           <FaStar />
           <FaStar />
           <FaStar />
           <FaStar />
           <FaStarHalf />
           <div className="text-black ml-2 text-[1.5vmax]">4.7 (67 ratings)</div>
-        </div>
+        </div> */}
 
         <div className="flex justify-between">
           <div className="w-full lg:w-[70%] flex flex-col gap-[3vmax]">
@@ -34,27 +34,40 @@ const SinglePage = () => {
                   alt=""
                   className="md:max-w-[200px] xl:max-w-[300px] 2xl:max-w-[400px] border-2 border-black object-cover rounded-lg"
                 />
-                <div className="text-[1.5vmax] font-bold flex gap-[1vmax] text-white justify-center items-center bg-black p-[1vmin] rounded-full">
+                {/* <div className="text-[1.5vmax] font-bold flex gap-[1vmax] text-white justify-center items-center bg-black p-[1vmin] rounded-full">
                   {" "}
                   <IoSearchOutline /> View Preview
-                </div>
+                </div> */}
               </div>
               <div className="flex flex-col text-[1.3vmax] gap-[1vmax]">
-                <div>
-                  <div>GRADE LEVEL</div>
-                  <div>6th - 9th</div>
+                <div className="text-[2vmax] font-semibold">Details</div>
+                <div className="flex gap-[1vmax]">
+                  <div>Publisher :</div>
+                  <div>Pearson; 2nd edition (March 22, 1988)</div>
                 </div>
-                <div>
-                  <div>SUBJECTS</div>
-                  <div>Science, Earth Sciences, General Science </div>
+                <div className="flex gap-[1vmax]">
+                  <div>Language :</div>
+                  <div>English</div>
                 </div>
-                <div>
-                  <div>RESOURCE TYPE</div>
-                  <div>Ativities</div>
+                <div className="flex gap-[1vmax]">
+                  <div> Paperback :</div>
+                  <div>272 pages</div>
                 </div>
-                <div>
-                  <div>PAGES</div>
-                  <div>22 pages</div>
+                <div className="flex gap-[1vmax]">
+                  <div>ISBN-10</div>
+                  <div>0131103628</div>
+                </div>
+                <div className="flex gap-[1vmax]">
+                  <div>ISBN-13 </div>
+                  <div>978-0131103627</div>
+                </div>
+                <div className="flex gap-[1vmax]">
+                  <div>Item Weight </div>
+                  <div>1.14 pounds</div>
+                </div>
+                <div className="flex gap-[1vmax]">
+                  <div>Dimensions </div>
+                  <div>7.1 x 0.7 x 9.6 inches</div>
                 </div>
               </div>
             </div>
@@ -73,13 +86,13 @@ const SinglePage = () => {
 
             <div className="md:hidden top-0 h-fit flex flex-col items-center gap-[1vmax] p-[2vmax] border-[1px] border-[#a0a0a0]">
             <div className="text-[2.5vmax]">$5.00</div>
-            <button className="bg-green-400 p-[1vmax] px-[4vmax] rounded-full">
+            <button className="bg-gradient-to-r from-[#ffde59] to-[#ff914d] p-[1vmax] px-[4vmax] rounded-full">
               Add One to Cart
             </button>
-            <button className="border-black border-[1px] p-[1vmin] px-[3vmax] rounded-full">
+            <button className="bg-black text-white p-[1vmin] px-[3vmax] rounded-full">
               Share
             </button>
-            <button className="border-black border-[1px] p-[1vmin] px-[1vmax] rounded-full">
+            <button className="bg-black text-white border-black border-[1px] p-[1vmin] px-[1vmax] rounded-full">
               Add in Wishlist
             </button>
           </div>
@@ -176,20 +189,20 @@ const SinglePage = () => {
           </div>
           <div className="md:sticky top-0 h-fit hidden md:flex flex-col items-center gap-[1vmax] p-[2vmax] border-[1px] border-[#a0a0a0]">
             <div className="text-[2.5vmax]">$5.00</div>
-            <button className="bg-green-400 p-[1vmax] px-[4vmax] rounded-full">
+            <button className="bg-gradient-to-r from-[#ffde59] to-[#ff914d] p-[1vmax] px-[4vmax] rounded-full">
               Add One to Cart
             </button>
-            <button className="border-black border-[1px] p-[1vmin] px-[3vmax] rounded-full">
+            <button className="border-black bg-black text-white  border-[1px] p-[1vmin] px-[3vmax] rounded-full">
               Share
             </button>
-            <button className="border-black border-[1px] p-[1vmin] px-[1vmax] rounded-full">
+            <button className="border-black bg-black text-white  border-[1px] p-[1vmin] px-[1vmax] rounded-full">
               Add in Wishlist
             </button>
           </div>
         </div>
       </div>
 
-      <div className="w-[80%] m-auto flex flex-col gap-2 py-[2vmax]">
+      {/* <div className="w-[80%] m-auto flex flex-col gap-2 py-[2vmax]">
         <div className="font-bold text-[1.5rem]">
           Explore Elementary School Resources
         </div>
@@ -203,9 +216,9 @@ const SinglePage = () => {
           <Card />
           <Card />
         </div>
-      </div>
+      </div> */}
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

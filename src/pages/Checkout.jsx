@@ -2,23 +2,30 @@ import { IoCartOutline, IoMenu, IoSearchOutline } from "react-icons/io5";
 import Footer from "../components/Footer";
 import Book from "../assets/cbook.jpg";
 import { Link } from "react-router-dom";
+import Logo from "../assets/logo.png";
 
 const Checkout = () => {
   return (
     <div>
       <div className="flex justify-between lg:w-[80%] m-auto p-[2vmax] border-b-[1px]">
         <Link to="/" className="flex justify-center">
-          <img
-            className="h-[40px]"
-            src="https://static1.teacherspayteachers.com/tpt-frontend/releases/production/current/792404e66d1d57a3f54f.svg"
-            alt=""
-          />
+          <img className="h-[2rem] lg:h-[3vmax]" src={Logo} alt="" />
         </Link>
 
         <div className="flex justify-center items-center gap-[2vmax]">
-          <div className="flex gap-2 text-[1.5vmax]">
-            <Link to="/login" className="font-bold">Log In</Link>|
-            <Link to="/signup" className="font-bold ">Join</Link>
+          <div className="flex gap-4 text-[1.2vmax]">
+            <Link
+              to="/login"
+              className=" font-bold font-[math] border-[1px] shadow-[0_0_5px_#a0a0a0] pt-[1vmin] p-[0.5vmin] px-[2vmax] text-orange-500 rounded-full"
+            >
+              LOGIN
+            </Link>
+            <Link
+              to="/signup"
+              className=" font-bold font-[math] border-[1px] shadow-[0_0_5px_#a0a0a0] pt-[1vmin] p-[0.5vmin] px-[2vmax] text-orange-500 rounded-full"
+            >
+              REGISTER
+            </Link>
           </div>
         </div>
       </div>
@@ -41,14 +48,11 @@ const Checkout = () => {
               />
 
               <div className="flex flex-col gap-[1vmax]">
-                <div className="text-[1.5vmax] font-semibold">
-                  Virtual Mineral Box Identification Lab Kit, Properties of
-                  Minerals Practice
-                </div>
+                <div className="text-[1.5vmax] font-semibold">C Languages Best Book | All Important Concepts</div>
                 <div className="text-[1vmax]">
                   Created by{" "}
                   <span className="text-blue-500 font-bold">
-                    Brownkell Science{" "}
+                    Brownkell {" "}
                   </span>
                 </div>
                 <div className="text-[1vmax]">
@@ -90,13 +94,12 @@ const Checkout = () => {
 
               <div className="flex flex-col gap-[1vmax]">
                 <div className="text-[1.5vmax] font-semibold">
-                  Virtual Mineral Box Identification Lab Kit, Properties of
-                  Minerals Practice
+                  C Languages Best Book | All Important Concepts
                 </div>
                 <div className="text-[1vmax]">
                   Created by{" "}
                   <span className="text-blue-500 font-bold">
-                    Brownkell Science{" "}
+                    Brownkell {" "}
                   </span>
                 </div>
                 <div className="text-[1vmax]">
@@ -129,12 +132,10 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
-            
           </div>
 
           <div className="w-full md:w-[30%]">
             <div className="md:sticky top-0 h-fit flex flex-col gap-[1vmax] p-[2vmax] border-[1px] border-[#a0a0a0]">
-
               <div className="text-[2vmax]">Order Summary </div>
               <div className="text-[1.2vmax] flex justify-between">
                 <div>Subtotal(1 items):</div>
@@ -145,16 +146,19 @@ const Checkout = () => {
                 <div>Total:</div>
                 <div>$5.00 USD</div>
               </div>
-              <button className="bg-green-400 text-[1vmax] font-semibold p-[1vmax] px-[3vmax] rounded-full">
+              <button className="bg-gradient-to-r from-[#ffde59] to-[#ff914d]  text-[1vmax] font-semibold p-[1vmax] px-[3vmax] rounded-full">
                 Secure Checkout
               </button>
-              <p className="text-[1vmax] text-center">Your purchased resources can be instantly downloaded from your TPT account</p>
+              <p className="text-[1vmax] text-center">
+                Your purchased resources can be instantly downloaded from your
+                SPS account
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

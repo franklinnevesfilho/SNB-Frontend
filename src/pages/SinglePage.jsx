@@ -16,7 +16,6 @@ const SinglePage = () => {
           Virtual Mineral Box Identification Lab Kit, Properties of Minerals
           Practice
         </div>
-<<<<<<< HEAD
         {/* <div className="text-yellow-300 text-[2vmax] flex items-center">
           <FaStar />
           <FaStar />
@@ -25,8 +24,6 @@ const SinglePage = () => {
           <FaStarHalf />
           <div className="text-black ml-2 text-[1.5vmax]">4.7 (67 ratings)</div>
         </div> */}
-=======
->>>>>>> 0aae293 (new update)
 
         <div className="flex justify-between">
           <div className="w-full lg:w-[70%] flex flex-col gap-[3vmax]">
@@ -37,14 +34,10 @@ const SinglePage = () => {
                   alt=""
                   className="md:max-w-[200px] xl:max-w-[300px] 2xl:max-w-[400px] border-2 border-black object-cover rounded-lg"
                 />
-<<<<<<< HEAD
                 {/* <div className="text-[1.5vmax] font-bold flex gap-[1vmax] text-white justify-center items-center bg-black p-[1vmin] rounded-full">
                   {" "}
                   <IoSearchOutline /> View Preview
                 </div> */}
-=======
-               
->>>>>>> 0aae293 (new update)
               </div>
               <div className="flex flex-col text-[1.3vmax] gap-[1vmax]">
                 <div className="text-[2vmax] font-semibold">Details</div>
@@ -209,7 +202,6 @@ const SinglePage = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* <div className="w-[80%] m-auto flex flex-col gap-2 py-[2vmax]">
         <div className="font-bold text-[1.5rem]">
           Explore Elementary School Resources
@@ -227,8 +219,6 @@ const SinglePage = () => {
       </div> */}
 
       {/* <Footer /> */}
-=======
->>>>>>> 0aae293 (new update)
     </div>
   );
 };

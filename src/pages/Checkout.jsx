@@ -1,10 +1,10 @@
-import { IoCartOutline, IoMenu, IoSearchOutline } from "react-icons/io5";
-import Footer from "../components/Footer";
 import Book from "../assets/cbook.jpg";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 const Checkout = () => {
+
+
   return (
     <div>
       <div className="flex justify-between lg:w-[80%] m-auto p-[2vmax] border-b-[1px]">
@@ -52,11 +52,8 @@ const Checkout = () => {
                 <div className="text-[1vmax]">
                   Created by{" "}
                   <span className="text-blue-500 font-bold">
-<<<<<<< HEAD
                     Brownkell {" "}
-=======
                     Brownkell{" "}
->>>>>>> 0aae293 (new update)
                   </span>
                 </div>
                 <div className="text-[1vmax]">
@@ -155,11 +152,8 @@ const Checkout = () => {
               </button>
               <p className="text-[1vmax] text-center">
                 Your purchased resources can be instantly downloaded from your
-<<<<<<< HEAD
                 SPS account
-=======
                 TPT account
->>>>>>> 0aae293 (new update)
               </p>
             </div>
           </div>

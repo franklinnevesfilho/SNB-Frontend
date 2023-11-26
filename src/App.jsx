@@ -36,7 +36,6 @@ function App() {
             <Route path="/forget" element={<ForgetPass apiCall={callAPI}/>} />
             <Route path="/reset" element={<ResetPass   apiCall={callAPI}/>} />
             <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />
- 
 
             {/* single item page */}
             <Route path="/singlepage" element={<SinglePage />} />

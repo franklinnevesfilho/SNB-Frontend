@@ -52,7 +52,11 @@ const Checkout = () => {
                 <div className="text-[1vmax]">
                   Created by{" "}
                   <span className="text-blue-500 font-bold">
+<<<<<<< HEAD
                     Brownkell {" "}
+=======
+                    Brownkell{" "}
+>>>>>>> 0aae293 (new update)
                   </span>
                 </div>
                 <div className="text-[1vmax]">
@@ -151,7 +155,11 @@ const Checkout = () => {
               </button>
               <p className="text-[1vmax] text-center">
                 Your purchased resources can be instantly downloaded from your
+<<<<<<< HEAD
                 SPS account
+=======
+                TPT account
+>>>>>>> 0aae293 (new update)
               </p>
             </div>
           </div>

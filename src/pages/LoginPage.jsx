@@ -1,81 +1,120 @@
-import React, {useState} from 'react';
-import LoginForm from "../components/LoginForm.jsx";
+import { useState } from "react";
+import Image from "../assets/loginimg.png";
+import { BiSolidLock, BiUserCircle } from "react-icons/bi";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {Link, useNavigate} from "react-router-dom";
 
-function LoginPage({apiCall}) {
+const LoginPage = ({apiCall, jwt, setJwt}) => {
+  const navigate = useNavigate();
+  const [response, setResponse] = useState({
+    node:"",
+    errors:[]
+  })
 
-    const [path, setPath] = useState('');
-    const [hasAccount, setHasAccount] = useState(true)
-    const [loginInputs, setLoginInputs] = useState({
-        email:'',
-        password:''
-    })
-    const [registerInputs, setRegisterInputs] = useState({
-        firstName:'',
-        lastName:'',
-        email:'',
-        password:''
-    })
+  const [togglePass, setTogglePass] = useState(false);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    const loginRequest = () =>{
-        setPath('/auth/login')
-        apiCall(
-            path,
-            'POST',
-            {'Content-Type': 'application/json'},
-            loginInputs,
-            (r) => console.log(r)
-        );
-    }
-    const registrationRequest = () =>{
-        apiCall(
-            '/auth/register',
-            'POST',
-            {'Content-Type': 'application/json'},
-            registerInputs,
-            (r) => console.log(r)
-        )
 
-    }
+  const loginRequest = (e) => {
+    e.preventDefault();
+    console.log("Entered Request");
 
-    return (
-        <>
-            <h1>LoginPage</h1>
-            <div className="form-container">
-                <div className="login-btn-container">
-                    <button className={'btn'} onClick={()=> setHasAccount(true)}>Log in</button>
-                    <button className={'btn'} onClick={()=> setHasAccount(false)}>Register</button>
-                </div>
+    apiCall(
+        '/auth/login',
+        'POST',
+        { 'Content-Type': 'application/json' },
+        { email, password },
+        (r) => {
+          console.log(r);
+          setResponse(r);
+          setJwt(r.node);
+          console.log(jwt);
+          localStorage.setItem("JWT", r.node);
+          if(r.errors.length === 0){
+            navigate("/home");
+          }else{
+            alert("Invalid Credentials");
+          }
+        });
+  }
 
-                { hasAccount ?
-                    <LoginForm
-                        inputs={loginInputs}
-                        handleChange={(e) =>
-                            setLoginInputs((prevState) => ({
-                                ...prevState,
-                                [e.target.name]: e.target.value.trim(),
-                            }))
-                        }
-                        onSubmit={loginRequest}
-                        submitType='Login'
-                    />
+  return (
+    <div className="w-full h-screen flex flex-col items-center ">
+      <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-full flex flex-col items-center gap-4">
+        <div className="w-[90%] md:w-full h-[55%] relative flex flex-col items-center">
+          <div className="w-full h-[90%] card-gradient rounded-ee-[8vmax] rounded-es-[8vmax]">
+            {" "}
+          </div>
 
-                    :
-
-                    <LoginForm
-                        inputs={registerInputs}
-                        handleChange={(e) =>
-                            setRegisterInputs((prevState) => ({
-                                ...prevState,
-                                [e.target.name]: e.target.value.trim(),
-                            }))
-                        }
-                        onSubmit={registrationRequest}
-                        submitType='Registration'
-                    />
-                }
+          <div className="h-full w-full absolute bottom-[-4%] lg:bottom-[-8%] flex flex-col items-center justify-end gap-2 m-8">
+            <div className="font-bold text-center text-white text-[2vmax]">
+              Welcome Back
             </div>
-        </>
-    );
-}
+            <img src={Image} className="w-[90%]" alt="" />
+          </div>
+        </div>
+
+        <form className="w-[80%] flex-grow flex flex-col gap-2 md:gap-[1.5vmin] 2xl:gap-[2vmin] pt-[1.5vmax]">
+          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.6vmax] pl-4">
+            <BiUserCircle className="text-[2vmax] text-slate-400" />
+            <input
+              className="flex-grow border-none bg-transparent outline-none "
+              type="email"
+              placeholder="Email"
+              onChange={(e)=> { setEmail(e.target.value) }}
+              value={email}
+            />
+          </div>
+          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.6vmax]  px-4">
+            <BiSolidLock className="text-[2vmax] text-slate-400" />
+            <input
+              className="flex-grow border-none bg-transparent outline-none "
+              type={`${togglePass ? "text" : "password"}`}
+              placeholder="Password"
+              onChange={(e)=> { setPassword(e.target.value)}}
+              value={password}
+            />
+            {togglePass ? (
+              <AiFillEye
+                onClick={() => {
+                  setTogglePass(false);
+                }}
+                className="text-lg md:text-[1.5vmax] text-slate-400"
+              />
+            ) : (
+              <AiFillEyeInvisible
+                onClick={() => {
+                  setTogglePass(true);
+                }}
+                className="text-lg md:text-[1.5vmax] text-slate-400"
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col items-center mb-1 ">
+            <Link to="/forgot-password"
+                  className="text-blue-600 font-bold text-xs
+                    md:text-sm lg:text-base 2xl:text-lg ">
+              Forgot Password?
+            </Link>
+          </div>
+          <button onClick={loginRequest}
+                  className="w-full font-bold text-white
+                  text-[1.3vmax] rounded-full p-3 md:p-[0.8vmax] card-gradient">
+            Login
+          </button>
+
+          <Link to="/signup"
+                className="text-blue-600 font-bold text-center
+                  text-xs md:text-sm lg:text-base 2xl:text-lg">
+            Don't Have an Account ? Sign Up
+          </Link>
+        </form>
+        {/* </div> */}
+      </div>
+    </div>
+  );
+};
 
 export default LoginPage;

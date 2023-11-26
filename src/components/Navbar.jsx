@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
-import Login from "../assets/login.png"
-// import Register from "../assets/login.png"
 
 const Navbar = () => {
   const [isOpen, setisOpen] = useState(false);
@@ -88,17 +85,6 @@ const Navbar = () => {
             <IoCartOutline className="text-[2vmax]" />
           </Link>
 
-        {/* <ul className={`flex flex-col lg:flex-row gap-[2vmax] text-[1.5rem] bg-white p-[2vmax] lg:p-0 items-center font-bold lg:font-semibold lg:text-[1.5vmax]`}>
-          <li className="hover:scale-110 hover:font-bold">Grade</li>
-          <li className="hover:scale-110 hover:font-bold">Resource type</li>
-          <li className="hover:scale-110 hover:font-bold">Seasonal</li>
-          <li className="hover:scale-110 hover:font-bold">ELA</li>
-          <li className="hover:scale-110 hover:font-bold">Math</li>
-          <li className="hover:scale-110 hover:font-bold">Science</li>
-          <li className="hover:scale-110 hover:font-bold">Social Studies</li>
-          <li className="hover:scale-110 hover:font-bold">Languages</li>
-          <li className="hover:scale-110 hover:font-bold">Art</li>
-        </ul> */}
       </div>
     </div>
   );

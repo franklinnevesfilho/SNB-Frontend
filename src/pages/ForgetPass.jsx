@@ -1,12 +1,10 @@
 import { useState } from "react";
 import Image from "../assets/loginimg.png";
-import { BiSolidLock, BiUserCircle } from "react-icons/bi";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
 
-const ForgetPass = () => {
-  const [togglepass, settogglepass] = useState(false);
+const ForgotPass = ({apiCall}) => {
   const [email, setemail] = useState("");
+
   return (
     <div className="w-full h-screen flex flex-col items-center ">
       <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-full flex flex-col items-center gap-4">
@@ -22,7 +20,7 @@ const ForgetPass = () => {
         </div>
 
         <form className="w-[80%] flex-grow flex flex-col gap-2 md:gap-[1.5vmin] 2xl:gap-[2vmin] pt-[1.5vmax]">
-        <div className="text-[2.5vmax] font-[800] mb-2"> Forget <br/> Password?</div>
+        <div className="text-[2.5vmax] font-[800] mb-2"> Forgot <br/> Password?</div>
           
           <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.6vmax] pl-4">
             <IoIosMail className="text-[2vmax] text-slate-400" />
@@ -45,5 +43,4 @@ const ForgetPass = () => {
     </div>
   );
 };
-
-export default ForgetPass;
+export default ForgotPass;

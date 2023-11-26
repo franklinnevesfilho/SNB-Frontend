@@ -1,21 +1,22 @@
 import './App.css'
 import HomePage from "./pages/HomePage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
 import {Route, Routes} from "react-router-dom";
 import ConfirmationPage from "./pages/ConfirmationPage.jsx";
-import Login from './pages/Login';
+import LoginPage from './pages/LoginPage.jsx';
 import SignUp from './pages/SignUp';
 import ForgetPass from './pages/ForgetPass';
 import ResetPass from './pages/ResetPass';
-import SinglePage from './pages/SinglePage.jsx';
+import ViewItemPage from './pages/ViewItemPage.jsx';
 import Checkout from './pages/Checkout.jsx';
+import {useState} from "react";
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function App() {
+    const [jwt, setJwt] = useState(localStorage.getItem('JWT') || '')
 
   //   global call api function that takes in necessary arguments for whatever is needed
-    const callAPI = async (path, method, headers, body, callback) => {
+    const apiCall = async (path, method, headers, body, callback) => {
         const response = await fetch('http://' + API_URL + path, {
             method: method,
             headers: headers,
@@ -28,23 +29,22 @@ function App() {
   return (
     <>
         <Routes>
-            {/*a route with an empty path that contains LoginPage component that uses the function callAPI*/}
-            {/* <Route path="/" element={<LoginPage apiCall={callAPI}/>} /> */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login apiCall={callAPI}/>} />
-            <Route path="/signup" element={<SignUp apiCall={callAPI}/>} />
-            <Route path="/forget" element={<ForgetPass apiCall={callAPI}/>} />
-            <Route path="/reset" element={<ResetPass   apiCall={callAPI}/>} />
+            <Route path="/" element={<LoginPage apiCall={apiCall} jwt={jwt} setJwt={setJwt}/>} />
+            <Route path="/signup" element={<SignUp apiCall={apiCall}/>} />
+            <Route path="/forgot-password" element={<ForgetPass apiCall={apiCall}/>} />
+            {/*A route directing to reset password which a token is passed through the url*/}
+            <Route path="/reset-password/:tokenId" element={<ResetPass apiCall={apiCall}/>} />
             <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />
 
-            {/* single item page */}
-            <Route path="/singlepage" element={<SinglePage />} />
-            {/* checkout page */}
-            <Route path="/checkout" element={<Checkout/>} />
+            <Route path="/home" element={<HomePage apiCall={apiCall} />} />
 
-            
+            <Route path="/viewItem/:itemId" element={<ViewItemPage />} />
+
+            <Route path="/checkout-cart" element={<Checkout apiCall={apiCall} />} />
+
             { /* TODO: 404 page */ }
             <Route path={'*'} element={<h1>Page not found</h1>} />
+
         </Routes>
     </>
   )

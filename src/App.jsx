@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import ConfirmationPage from "./pages/ConfirmationPage.jsx";
 import LoginPage from './pages/LoginPage.jsx';
 import SignUp from './pages/SignUp';
-import ForgetPass from './pages/ForgetPass';
+import ForgotPass from './pages/ForgotPass';
 import ResetPass from './pages/ResetPass';
 import ViewItemPage from './pages/ViewItemPage.jsx';
 import Checkout from './pages/Checkout.jsx';
@@ -31,7 +31,7 @@ function App() {
         <Routes>
             <Route path="/" element={<LoginPage apiCall={apiCall} jwt={jwt} setJwt={setJwt}/>} />
             <Route path="/signup" element={<SignUp apiCall={apiCall}/>} />
-            <Route path="/forgot-password" element={<ForgetPass apiCall={apiCall}/>} />
+            <Route path="/forgot-password" element={<ForgotPass apiCall={apiCall}/>} />
             {/*A route directing to reset password which a token is passed through the url*/}
             <Route path="/reset-password/:tokenId" element={<ResetPass apiCall={apiCall}/>} />
             <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />

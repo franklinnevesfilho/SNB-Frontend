@@ -16,7 +16,7 @@ function App() {
     const [jwt, setJwt] = useState(localStorage.getItem('JWT') || '')
 
   //   global call api function that takes in necessary arguments for whatever is needed
-    const apiCall = async (path, method, headers, body, callback) => {
+    const callAPI = async (path, method, headers, body, callback) => {
         const response = await fetch('http://' + API_URL + path, {
             method: method,
             headers: headers,

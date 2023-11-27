@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar/Navbar.jsx";
 import { FaStar } from "react-icons/fa6";
 import Book from "../assets/cbook.jpg";
 import { FaStarHalf } from "react-icons/fa";

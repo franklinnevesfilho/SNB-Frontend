@@ -16,12 +16,13 @@ function App() {
     const [jwt, setJwt] = useState(localStorage.getItem('JWT') || '')
 
   //   global call api function that takes in necessary arguments for whatever is needed
-    const callAPI = async (path, method, headers, body, callback) => {
+    const apiCall = async (path, method, headers, body, callback, rejected) => {
         const response = await fetch('http://' + API_URL + path, {
             method: method,
             headers: headers,
             body: JSON.stringify(body)
-        })
+        }).catch(rejected)
+
         const json = await response.json()
         callback(json)
     }
@@ -33,12 +34,12 @@ function App() {
             <Route path="/signup" element={<SignUp apiCall={apiCall}/>} />
             <Route path="/forgot-password" element={<ForgotPass apiCall={apiCall}/>} />
             {/*A route directing to reset password which a token is passed through the url*/}
-            <Route path="/reset-password/:tokenId" element={<ResetPass apiCall={apiCall}/>} />
+            <Route path="/reset-password/:userId" element={<ResetPass apiCall={apiCall}/>} />
             <Route path="/confirm-account/:tokenId" element={<ConfirmationPage />} />
 
             <Route path="/home" element={<HomePage apiCall={apiCall} />} />
 
-            <Route path="/viewItem/:itemId" element={<ViewItemPage />} />
+            <Route path="/viewItem/:itemId" element={<ViewItemPage apiCall={apiCall}/>} />
 
             <Route path="/checkout-cart" element={<Checkout apiCall={apiCall} />} />
 

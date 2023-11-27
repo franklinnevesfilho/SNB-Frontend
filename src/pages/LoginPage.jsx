@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Image from "../assets/loginimg.png";
 import { BiSolidLock, BiUserCircle } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -14,7 +14,7 @@ const LoginPage = ({apiCall, jwt, setJwt}) => {
   const [togglePass, setTogglePass] = useState(false);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const [hasErrors, setHasErrors] = useState(response.node.length > 0)
 
   const loginRequest = (e) => {
     e.preventDefault();
@@ -34,11 +34,20 @@ const LoginPage = ({apiCall, jwt, setJwt}) => {
           if(r.errors.length === 0){
             navigate("/home");
           }else{
-            alert("Invalid Credentials");
+            setResponse({node:"", errors:["Invalid Credentials"]})
+            setEmail("")
+            setPassword("")
+            alert("Invalid Credentials")
           }
-        });
+        },
+        (e) => {
+          setResponse({node:"", errors:[e.message]})
+        }
+        );
   }
-
+  useEffect(() => {
+    setHasErrors(response.errors.length > 0)
+  }, [response]);
   return (
     <div className="w-full h-screen flex flex-col items-center ">
       <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-full flex flex-col items-center gap-4">
@@ -54,22 +63,21 @@ const LoginPage = ({apiCall, jwt, setJwt}) => {
             <img src={Image} className="w-[90%]" alt="" />
           </div>
         </div>
-
         <form className="w-[80%] flex-grow flex flex-col gap-2 md:gap-[1.5vmin] 2xl:gap-[2vmin] pt-[1.5vmax]">
-          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.6vmax] pl-4">
-            <BiUserCircle className="text-[2vmax] text-slate-400" />
+          <div className={`flex gap-2 rounded-full p-2 md:p-[0.6max] pl-4 ${hasErrors ? 'bg-red-500':'bg-slate-100'}`}>
+            <BiUserCircle className={`text-[2vmax] ${hasErrors ? 'text-black-400':'text-slate-400'}`} />
             <input
-              className="flex-grow border-none bg-transparent outline-none "
-              type="email"
+              className={`bg-transparent flex-grow border-none outline-none ${hasErrors > 0 ? 'placeholder-black':''}`}
+              type="text"
               placeholder="Email"
-              onChange={(e)=> { setEmail(e.target.value) }}
+              onChange={(e)=> { setEmail(e.target.value)}}
               value={email}
             />
           </div>
-          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.6vmax]  px-4">
-            <BiSolidLock className="text-[2vmax] text-slate-400" />
+          <div className={`flex gap-2 rounded-full p-2 md:p-[0.6max] pl-4 ${hasErrors ? 'bg-red-500':'bg-slate-100'}`}>
+            <BiSolidLock className={`text-[2vmax] ${hasErrors ? 'text-black-400':'text-slate-400'}`} />
             <input
-              className="flex-grow border-none bg-transparent outline-none "
+              className={`flex-grow border-none bg-transparent outline-none ${hasErrors > 0 ? 'placeholder-black':''}`}
               type={`${togglePass ? "text" : "password"}`}
               placeholder="Password"
               onChange={(e)=> { setPassword(e.target.value)}}
@@ -80,14 +88,14 @@ const LoginPage = ({apiCall, jwt, setJwt}) => {
                 onClick={() => {
                   setTogglePass(false);
                 }}
-                className="text-lg md:text-[1.5vmax] text-slate-400"
+                className={`text-lg md:text-[1.5vmax] ${hasErrors ? 'text-black-400':'text-slate-400'}`}
               />
             ) : (
               <AiFillEyeInvisible
                 onClick={() => {
                   setTogglePass(true);
                 }}
-                className="text-lg md:text-[1.5vmax] text-slate-400"
+                className={`text-lg md:text-[1.5vmax] ${hasErrors ? 'text-black-400':'text-slate-400'}`}
               />
             )}
           </div>

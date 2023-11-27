@@ -1,10 +1,7 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar/Navbar.jsx";
 import { FaStar } from "react-icons/fa6";
 import Book from "../assets/cbook.jpg";
 import { FaStarHalf } from "react-icons/fa";
-import { IoSearchOutline } from "react-icons/io5";
-import Card from "../components/Card";
 
 const SinglePage = () => {
   return (
@@ -16,14 +13,6 @@ const SinglePage = () => {
           Virtual Mineral Box Identification Lab Kit, Properties of Minerals
           Practice
         </div>
-        {/* <div className="text-yellow-300 text-[2vmax] flex items-center">
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStarHalf />
-          <div className="text-black ml-2 text-[1.5vmax]">4.7 (67 ratings)</div>
-        </div> */}
 
         <div className="flex justify-between">
           <div className="w-full lg:w-[70%] flex flex-col gap-[3vmax]">

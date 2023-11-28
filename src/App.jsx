@@ -9,19 +9,27 @@ import ResetPass from './pages/ResetPass';
 import ViewItemPage from './pages/ViewItemPage.jsx';
 import Checkout from './pages/Checkout.jsx';
 import {useState} from "react";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import TwoAuthPage from "./pages/TwoAuthPage.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function App() {
-    const [jwt, setJwt] = useState(localStorage.getItem('JWT') || '')
-
-  //   global call api function that takes in necessary arguments for whatever is needed
     const apiCall = async (path, method, headers, body, callback, rejected) => {
-        const response = await fetch('http://' + API_URL + path, {
-            method: method,
-            headers: headers,
-            body: JSON.stringify(body)
-        }).catch(rejected)
+
+        let response = '';
+        if (method === 'GET') {
+            response = await fetch('http://' + API_URL + path, {
+                method: method,
+                headers: headers
+            }).catch(rejected)
+        }else if(method === 'POST') {
+            response = await fetch('http://' + API_URL + path, {
+                    method: method,
+                    headers: headers,
+                    body: JSON.stringify(body)
+                }).catch(rejected)
+        }
 
         const json = await response.json()
         callback(json)
@@ -30,7 +38,7 @@ function App() {
   return (
     <>
         <Routes>
-            <Route path="/" element={<LoginPage apiCall={apiCall} jwt={jwt} setJwt={setJwt}/>} />
+            <Route path="/" element={<LoginPage apiCall={apiCall}/>} />
             <Route path="/signup" element={<SignUp apiCall={apiCall}/>} />
             <Route path="/forgot-password" element={<ForgotPass apiCall={apiCall}/>} />
             {/*A route directing to reset password which a token is passed through the url*/}
@@ -42,6 +50,8 @@ function App() {
             <Route path="/viewItem/:itemId" element={<ViewItemPage apiCall={apiCall}/>} />
 
             <Route path="/checkout-cart" element={<Checkout apiCall={apiCall} />} />
+            <Route path="/profile" element={<ProfilePage apiCall={apiCall} />} />
+            <Route path="/two-factor-auth" element={<TwoAuthPage apiCall={apiCall} />} />
 
             { /* TODO: 404 page */ }
             <Route path={'*'} element={<h1>Page not found</h1>} />

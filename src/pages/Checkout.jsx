@@ -1,151 +1,94 @@
-import Book from "../assets/cbook.jpg";
-import { Link } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Navbar from "../components/navbar/Navbar.jsx";
+import CheckoutCard from "../components/listing/CheckoutCard.jsx";
+import {useEffect, useState} from "react";
 
-const Checkout = () => {
+const Checkout = ({apiCall}) => {
+  const [jwt] = useState(localStorage.getItem('JWT') || '')
+  const [cart, setCart] = useState([]) // array of listing objects
 
+  function removeItem (id) {
+    apiCall(
+        '/user/remove-from-cart/'+ id,
+        'GET',
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`
+        },
+        {},
+        (r) => {
+          console.log(r);
+          setCart(r.node)
+        },
+        (e) => {
+          console.log(e);
+          alert("Something went wrong, please try again later.")
+        }
+    );
+  }
+  const getTotal = () => {
+    let total = 0
+    cart.forEach((item) => {
+      total += item.price
+    })
+    return total
+  }
 
+  const getCart = () => {
+    apiCall(
+        '/user/get-cart',
+        'GET',
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`
+        },
+        {},
+        (r) => {
+          console.log(r);
+          setCart(r.node)
+        },
+        (e) => {
+          console.log(e);
+          alert("Something went wrong, please try again later.")
+        }
+    );
+  }
+
+  useEffect(() => {
+    getCart()
+  }, []);
   return (
-    <div>
-      <div className="flex justify-between lg:w-[80%] m-auto p-[2vmax] border-b-[1px]">
-        <Link to="/" className="flex justify-center">
-          <img className="h-[2rem] lg:h-[3vmax]" src={Logo} alt="" />
-        </Link>
+      <div>
+        <Navbar />
 
-        <div className="flex justify-center items-center gap-[2vmax]">
-          <div className="flex gap-4 text-[1.2vmax]">
-            <Link
-              to="/login"
-              className=" font-bold font-[math] border-[1px] shadow-[0_0_5px_#a0a0a0] pt-[1vmin] p-[0.5vmin] px-[2vmax] text-orange-500 rounded-full"
-            >
-              LOGIN
-            </Link>
-            <Link
-              to="/signup"
-              className=" font-bold font-[math] border-[1px] shadow-[0_0_5px_#a0a0a0] pt-[1vmin] p-[0.5vmin] px-[2vmax] text-orange-500 rounded-full"
-            >
-              REGISTER
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-[80%] m-auto mb-[4vmax]">
-        <div className="flex flex-col gap-[1vmin] py-[2vmax]">
-          <div className="text-[4vmax] font-semibold font-serif">My Cart</div>
-          <div className="text-[1.5vmax] text-gray-400">
-            Review and edit your order, then proceed to Checkout.
+        <div className="w-[80%] m-auto mb-[4vmax]">
+          <div className="flex flex-col gap-[1vmin] py-[2vmax]">
+            <div className="text-[4vmax] font-semibold font-serif">My Cart</div>
+            <div className="text-[1.5vmax] text-gray-400">
+              Review and edit your order, then proceed to Checkout.
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-center md:justify-between flex-wrap">
+        <div className="w-[80%] m-auto mb-[4vmax] flex justify-center md:justify-between flex-wrap">
           <div className="w-full flex flex-col gap-[3vmax] md:w-[70%] p-[2vmax]">
-            <div className="flex gap-[1.5vmax] justify-center flex-wrap md:flex-nowrap bg-gray-50 p-[1vmax] rounded-[1vmax]">
-              <img
-                src={Book}
-                alt=""
-                className="h-[200px] w-[200px] border-2 border-gray-400 object-cover  rounded-lg"
-              />
-
-              <div className="flex flex-col gap-[1vmax]">
-                <div className="text-[1.5vmax] font-semibold">C Languages Best Book | All Important Concepts</div>
-                <div className="text-[1vmax]">
-                  Created by{" "}
-                  <span className="text-blue-500 font-bold">
-                    Brownkell {" "}
-                    Brownkell{" "}
-                  </span>
+            {cart.map((listing, index) => (
+                <div key={index}>
+                  <CheckoutCard listing={listing} sellerId={listing.sellerId} apiCall={apiCall} removeItem={removeItem} />
                 </div>
-                <div className="text-[1vmax]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-                  assumenda, libero ducimus nulla eveniet, quaerat iste corporis
-                  velit provident ut ipsa dignissimos. Officiis.
-                </div>
-                <p className="text-[1vmax]">
-                  Also included in:{" "}
-                  <span className="text-blue-500">
-                    Minerals Properties, Identification and Characteristics
-                    Lessons Unit Bund{" "}
-                  </span>
-                </p>
-                <button className="bg-red-400 text-[1.5vmax] w-fit p-[1vmin] px-[1vmax] rounded-full font-bold">
-                  Remove
-                </button>
-              </div>
-
-              <div className="flex md:flex-col gap-[2vmax] justify-start items-center">
-                <div className="text-[2.5vmax]">$5.00</div>
-                <div className="flex border-2 w-fit rounded-[1vmin]">
-                  <div className="p-[1vmax] border-r-2 flex justify-center items-center">
-                    1
-                  </div>
-                  <div>
-                    <div className="border-b-2 p-1">+</div>
-                    <div className="p-1">-</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-[1.5vmax] justify-center flex-wrap md:flex-nowrap bg-gray-50 p-[1vmax] rounded-[1vmax]">
-              <img
-                src={Book}
-                alt=""
-                className="h-[200px] w-[200px] border-2 border-gray-400 object-cover  rounded-lg"
-              />
-
-              <div className="flex flex-col gap-[1vmax]">
-                <div className="text-[1.5vmax] font-semibold">
-                  C Languages Best Book | All Important Concepts
-                </div>
-                <div className="text-[1vmax]">
-                  Created by{" "}
-                  <span className="text-blue-500 font-bold">
-                    Brownkell {" "}
-                  </span>
-                </div>
-                <div className="text-[1vmax]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-                  assumenda, libero ducimus nulla eveniet, quaerat iste corporis
-                  velit provident ut ipsa dignissimos. Officiis.
-                </div>
-                <p className="text-[1vmax]">
-                  Also included in:{" "}
-                  <span className="text-blue-500">
-                    Minerals Properties, Identification and Characteristics
-                    Lessons Unit Bund{" "}
-                  </span>
-                </p>
-                <button className="bg-red-400 text-[1.5vmax] w-fit p-[1vmin] px-[1vmax] rounded-full font-bold">
-                  Remove
-                </button>
-              </div>
-
-              <div className="flex md:flex-col gap-[2vmax] justify-start items-center">
-                <div className="text-[2.5vmax]">$5.00</div>
-                <div className="flex border-2 w-fit rounded-[1vmin]">
-                  <div className="p-[1vmax] border-r-2 flex justify-center items-center">
-                    1
-                  </div>
-                  <div>
-                    <div className="border-b-2 p-1">+</div>
-                    <div className="p-1">-</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="w-full md:w-[30%]">
-            <div className="md:sticky top-0 h-fit flex flex-col gap-[1vmax] p-[2vmax] border-[1px] border-[#a0a0a0]">
+            <div className="md:sticky top-0 h-fit flex flex-col gap-[1vmax] p-[2vmax] border-[1px] border-[#a0a0a0] z-0">
               <div className="text-[2vmax]">Order Summary </div>
               <div className="text-[1.2vmax] flex justify-between">
-                <div>Subtotal(1 items):</div>
-                <div>$5.00</div>
+                <div>Total Items : </div>
+                <div>{cart.length + ' '}items</div>
               </div>
               <div className="w-full border-[1px] border-gray-400 "></div>
               <div className="text-[1.2vmax] flex justify-between">
                 <div>Total:</div>
-                <div>$5.00 USD</div>
+                <div>${getTotal()} USD</div>
               </div>
               <button className="bg-gradient-to-r from-[#ffde59] to-[#ff914d]  text-[1vmax] font-semibold p-[1vmax] px-[3vmax] rounded-full">
                 Secure Checkout
@@ -153,15 +96,11 @@ const Checkout = () => {
               <p className="text-[1vmax] text-center">
                 Your purchased resources can be instantly downloaded from your
                 SPS account
-                TPT account
               </p>
             </div>
           </div>
         </div>
       </div>
-
-      {/* <Footer /> */}
-    </div>
   );
 };
 

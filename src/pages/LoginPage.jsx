@@ -4,7 +4,8 @@ import { BiSolidLock, BiUserCircle } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import {Link, useNavigate} from "react-router-dom";
 
-const LoginPage = ({apiCall, jwt, setJwt}) => {
+const LoginPage = ({apiCall}) => {
+  const [ jwt ,setJwt] = useState(localStorage.getItem('JWT') || '')
   const navigate = useNavigate();
   const [response, setResponse] = useState({
     node:"",
@@ -28,11 +29,16 @@ const LoginPage = ({apiCall, jwt, setJwt}) => {
         (r) => {
           console.log(r);
           setResponse(r);
-          setJwt(r.node);
-          console.log(jwt);
-          localStorage.setItem("JWT", r.node);
+          setJwt(r.node.jwt);
+
+          localStorage.setItem("JWT", r.node.jwt);
+
           if(r.errors.length === 0){
-            navigate("/home");
+            if(r.node.user.twoFactorEnabled){
+                navigate("/two-factor-auth")
+            }else{
+              navigate("/home");
+            }
           }else{
             setResponse({node:"", errors:["Invalid Credentials"]})
             setEmail("")

@@ -1,14 +1,13 @@
-import { Link } from "react-router-dom";
-import Book from "../assets/cbook.jpg";
+import {Link, useNavigate} from "react-router-dom";
+import Book from "../../assets/cbook.jpg";
 import { FaStar } from "react-icons/fa6";
 import {useEffect, useState} from "react";
 
 const Listing = ({listingParam, apiCall ,sellerId}) => {
   const [jwt] = useState(localStorage.getItem('JWT') || '')
   const [seller, setSeller] = useState({
-    id:"",
     firstName:"",
-    lastName:"",
+    lastName:""
   })
 
   const[listing, setListing] = useState({
@@ -17,8 +16,6 @@ const Listing = ({listingParam, apiCall ,sellerId}) => {
     description:"",
     datePosted:"",
     datePurchased:"",
-    images:[],
-    messages:[],
     price:"",
     sellerId:"" // user object
   })
@@ -33,10 +30,16 @@ const Listing = ({listingParam, apiCall ,sellerId}) => {
           },
             {sellerId},
             (r) => {
+              console.log(r)
               setSeller(r.node)
+              console.log(seller)
             },
             (e) => {
-                console.log(e);
+              console.log(e);
+              setSeller({
+                firstName:"N/A",
+                lastName:""
+              })
             }
       )
   }
@@ -46,7 +49,7 @@ const Listing = ({listingParam, apiCall ,sellerId}) => {
     getSeller();
   }, []);
   return (
-    <Link to="/viewItem/:itemId">
+    <Link to={"/viewItem/" + listing.id}>
     <div className="flex flex-col gap-1 p-2 rounded-lg shadow-[0_0_10px_#f0f0f0] ">
       <img src={Book} alt="" className="max-h-[200px] object-cover rounded-lg" />
       <div className="p-1 flex flex-col gap-1">

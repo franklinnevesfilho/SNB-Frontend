@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL
-function ConfirmationPage() {
+const ConfirmationPage = () => {
     const { tokenId } = useParams()
 
     const [errors, setErrors] = useState([])

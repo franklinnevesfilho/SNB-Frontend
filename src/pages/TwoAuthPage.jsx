@@ -5,7 +5,6 @@ import {BiKey} from "react-icons/bi";
 import {Link, useNavigate} from "react-router-dom";
 
 const TwoAuthPage = ({ apiCall}) => {
-    const [jwt, setJwt] = useState(localStorage.getItem('JWT') || '')
     const navigate = useNavigate();
     const [otp, setOtp] = useState("");
     const [hasErrors, setHasErrors] = useState(false); // Adjust this as needed
@@ -28,11 +27,10 @@ const TwoAuthPage = ({ apiCall}) => {
             { },
             (r) => {
                 console.log(r);
-                // Handle successful OTP verification
-                // Example: Set JWT token, navigate to home page, etc.
-                setJwt(r.node);
-                localStorage.setItem("JWT", r.node);
-                navigate("/home");
+                if(r.node.errors.length === 0) {
+                    localStorage.setItem("JWT", r.node.jwt);
+                    navigate("/home");
+                }
             },
             (e) => {
                 console.log(e);

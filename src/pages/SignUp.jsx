@@ -1,34 +1,43 @@
 import { useState } from "react";
 import Image from "../assets/signupimg.png";
-import { BiSolidLock, BiSolidUserDetail, BiUserCircle } from "react-icons/bi";
-import { AiFillCalendar, AiFillEye, AiFillEyeInvisible, AiOutlineCalendar, AiTwotoneCalendar } from "react-icons/ai";
+import { BiSolidLock, BiSolidUserDetail} from "react-icons/bi";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
-import { FiEdit2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const SignUp = ({ apiCall }) => {
-  const [togglepass, settogglepass] = useState(false);
-  const [toggleconpass, settoggleconpass] = useState(false);
+  const [togglePass, setTogglePass] = useState(false);
+  const [toggleConPass, setToggleConPass] = useState(false);
 
-  const [firstname, setfirstname] = useState("");
-  const [lastname, setlastname] = useState("");
-  const [dob, setdob] = useState("");
-  const [username, setusername] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [conpassword, setconpassword] = useState("");
-  const [remember, setremember] = useState(false);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conPassword, setConPassword] = useState("");
 
   const registrationRequest = () => {
-    if (password == conpassword) {
-      apiCall(
-        "/auth/register",
-        "POST",
-        { "Content-Type": "application/json" },
-        {firstname, lastname, dob, username, email, password },
-        (r) => console.log(r)
-      );
-    }
+apiCall(
+      "/auth/register",
+      "POST",
+      { "Content-Type": "application/json" },
+      {
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        password: password
+      },
+      (r) => {
+        console.log(r);
+        if (r.node.errors.length === 0) {
+          alert("Registration Successful");
+        } else {
+          alert("Registration Failed");
+        }
+      },
+      (e) => {
+        console.log(e);
+      }
+    );
   };
 
   return (
@@ -57,7 +66,7 @@ const SignUp = ({ apiCall }) => {
               type="text"
               placeholder="First Name"
               onChange={(e) => {
-                setfirstname(e.target.value);
+                setFirstName(e.target.value);
               }}
               value={firstname}
             />
@@ -69,37 +78,9 @@ const SignUp = ({ apiCall }) => {
               type="text"
               placeholder="Last Name"
               onChange={(e) => {
-                setlastname(e.target.value);
+                setLastName(e.target.value);
               }}
               value={lastname}
-            />
-          </div>
-          <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
-            <AiTwotoneCalendar className="text-[1.7vmax] text-slate-400" />
-            <input
-              className="flex-grow border-none bg-transparent outline-none "
-              type="date"
-              onChange={(e) => {
-                setdob(e.target.value);
-              }}
-              value={dob}
-            />
-          </div>
-
-        {/*  block End here ---------------------- */}
-
-
-
-          <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
-            <BiUserCircle className="text-[2vmax] text-slate-400" />
-            <input
-              className="flex-grow border-none bg-transparent outline-none "
-              type="text"
-              placeholder="Username"
-              onChange={(e) => {
-                setusername(e.target.value);
-              }}
-              value={username}
             />
           </div>
           <div className="flex gap-2 rounded-full bg-slate-100 p-2 md:p-[0.5vmax] pl-4">
@@ -109,7 +90,7 @@ const SignUp = ({ apiCall }) => {
               type="email"
               placeholder="Email"
               onChange={(e) => {
-                setemail(e.target.value);
+                setEmail(e.target.value);
               }}
               value={email}
             />
@@ -118,24 +99,24 @@ const SignUp = ({ apiCall }) => {
             <BiSolidLock className="text-[2vmax] text-slate-400" />
             <input
               className="flex-grow border-none bg-transparent outline-none "
-              type={`${togglepass ? "text" : "password"}`}
+              type={`${togglePass ? "text" : "password"}`}
               placeholder="Password"
               onChange={(e) => {
-                setpassword(e.target.value);
+                setPassword(e.target.value);
               }}
               value={password}
             />
-            {togglepass ? (
+            {togglePass ? (
               <AiFillEye
                 onClick={() => {
-                  settogglepass(false);
+                  setTogglePass(false);
                 }}
                 className="text-lg md:text-[1.5vmax] text-slate-400"
               />
             ) : (
               <AiFillEyeInvisible
                 onClick={() => {
-                  settogglepass(true);
+                  setTogglePass(true);
                 }}
                 className="text-lg md:text-[1.5vmax] text-slate-400"
               />
@@ -144,59 +125,42 @@ const SignUp = ({ apiCall }) => {
           <div className="flex gap-2 items-center rounded-full bg-slate-100 p-2 md:p-[0.5vmax]  px-4">
             <BiSolidLock className="text-[2vmax] text-slate-400" />
             <input
-              className="flex-grow border-none bg-transparent outline-none "
-              type={`${toggleconpass ? "text" : "password"}`}
-              placeholder="Password"
+              className={`flex-grow border-none bg-transparent outline-none ${conPassword === password ? "text-green-500" : "text-red-500"}`}
+              type={`${toggleConPass ? "text" : "password"}`}
+              placeholder="Retype Password"
               onChange={(e) => {
-                setconpassword(e.target.value);
+                setConPassword(e.target.value);
               }}
-              value={conpassword}
+              value={conPassword}
             />
-            {toggleconpass ? (
+            {toggleConPass ? (
               <AiFillEye
                 onClick={() => {
-                  settoggleconpass(false);
+                  setToggleConPass(false);
                 }}
                 className="text-lg md:text-[1.5vmax] text-slate-400"
               />
             ) : (
               <AiFillEyeInvisible
                 onClick={() => {
-                  settoggleconpass(true);
+                  setToggleConPass(true);
                 }}
                 className="text-lg md:text-[1.5vmax] text-slate-400"
               />
             )}
           </div>
 
-          <div className="flex justify-between mb-1">
-            <div className="flex gap-1">
-              <input type="checkbox" id="rp" onChange={()=>{ setremember(!remember)}} value={remember}/>
-              <label
-                htmlFor="rp"
-                className="text-blue-600 font-bold text-xs md:text-sm lg:text-base 2xl:text-lg"
-              >
-                Remember Password
-              </label>
-            </div>
-          </div>
-
-          <button
-            onClick={registrationRequest}
-            className="w-full card-gradient font-bold text-white text-[1.3vmax] rounded-full p-3 md:p-[0.4vmax]"
-          >
+          <button onClick={registrationRequest} className="w-full card-gradient
+          font-bold text-white text-[1.3vmax] rounded-full p-3 md:p-[0.4vmax]">
             SignUp
           </button>
 
-          <Link
-            to="/login"
-            className="text-blue-600 font-bold text-center text-xs md:text-sm lg:text-base 2xl:text-lg"
-          >
+          <Link to="/" className="text-blue-600 font-bold
+          text-center text-xs md:text-sm lg:text-base 2xl:text-lg">
             {" "}
             Already Have an Account ? Sign In
           </Link>
         </form>
-        {/* </div> */}
       </div>
     </div>
   );

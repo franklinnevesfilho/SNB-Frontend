@@ -5,7 +5,6 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import {Link, useNavigate} from "react-router-dom";
 
 const LoginPage = ({apiCall}) => {
-  const [ jwt ,setJwt] = useState(localStorage.getItem('JWT') || '')
   const navigate = useNavigate();
   const [response, setResponse] = useState({
     node:"",
@@ -13,10 +12,14 @@ const LoginPage = ({apiCall}) => {
   })
 
   const [togglePass, setTogglePass] = useState(false);
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
   const [hasErrors, setHasErrors] = useState(response.node.length > 0)
 
+  const clearCredentials = () => {
+    setEmail("")
+    setPassword("")
+  }
   const loginRequest = (e) => {
     e.preventDefault();
     console.log("Entered Request");
@@ -28,22 +31,19 @@ const LoginPage = ({apiCall}) => {
         { email, password },
         (r) => {
           console.log(r);
-          setResponse(r);
-          setJwt(r.node.jwt);
-
-          localStorage.setItem("JWT", r.node.jwt);
-
           if(r.errors.length === 0){
-            if(r.node.user.twoFactorEnabled){
+            let user = r.node.user;
+            let jwt = r.node.jwt;
+
+            localStorage.setItem("JWT", jwt);
+
+            if(user.twoFactorEnabled){
                 navigate("/two-factor-auth")
             }else{
               navigate("/home");
             }
           }else{
-            setResponse({node:"", errors:["Invalid Credentials"]})
-            setEmail("")
-            setPassword("")
-            alert("Invalid Credentials")
+            clearCredentials()
           }
         },
         (e) => {
@@ -76,17 +76,17 @@ const LoginPage = ({apiCall}) => {
               className={`bg-transparent flex-grow border-none outline-none ${hasErrors > 0 ? 'placeholder-black':''}`}
               type="text"
               placeholder="Email"
-              onChange={(e)=> { setEmail(e.target.value)}}
+              onChange={(e)=> { setEmail(e.target.value) }}
               value={email}
             />
           </div>
           <div className={`flex gap-2 rounded-full p-2 md:p-[0.6max] pl-4 ${hasErrors ? 'bg-red-500':'bg-slate-100'}`}>
             <BiSolidLock className={`text-[2vmax] ${hasErrors ? 'text-black-400':'text-slate-400'}`} />
             <input
-              className={`flex-grow border-none bg-transparent outline-none ${hasErrors > 0 ? 'placeholder-black':''}`}
+              className={`flex-grow border-none bg-transparent outline-none ${hasErrors > 0 ? "" : "text-red-500"}`}
               type={`${togglePass ? "text" : "password"}`}
               placeholder="Password"
-              onChange={(e)=> { setPassword(e.target.value)}}
+              onChange={(e)=> { setPassword(e.target.value) }}
               value={password}
             />
             {togglePass ? (

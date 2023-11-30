@@ -16,7 +16,7 @@ const SignUp = ({ apiCall }) => {
   const [conPassword, setConPassword] = useState("");
 
   const registrationRequest = () => {
-apiCall(
+    apiCall(
       "/auth/register",
       "POST",
       { "Content-Type": "application/json" },

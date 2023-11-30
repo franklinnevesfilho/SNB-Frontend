@@ -10,7 +10,6 @@ const LoginPage = ({apiCall}) => {
     node:"",
     errors:[]
   })
-
   const [togglePass, setTogglePass] = useState(false);
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
@@ -32,12 +31,12 @@ const LoginPage = ({apiCall}) => {
         (r) => {
           console.log(r);
           if(r.errors.length === 0){
-            let user = r.node.user;
-            let jwt = r.node.jwt;
+            let node = r.node;
+            let jwt = node.jwt;
 
             localStorage.setItem("JWT", jwt);
 
-            if(user.twoFactorEnabled){
+            if(node.twoFactorEnabled){
                 navigate("/two-factor-auth")
             }else{
               navigate("/home");

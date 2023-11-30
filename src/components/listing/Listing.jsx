@@ -30,12 +30,10 @@ const Listing = ({listingParam, apiCall ,sellerId}) => {
           },
             {sellerId},
             (r) => {
-              console.log(r)
               setSeller(r.node)
-              console.log(seller)
             },
             (e) => {
-              console.log(e);
+              //console.log(e);
               setSeller({
                 firstName:"N/A",
                 lastName:""
@@ -63,9 +61,6 @@ const Listing = ({listingParam, apiCall ,sellerId}) => {
           <div className="font-semibold">{seller.firstName + " " + seller.lastName}</div>
         </div>
         <div className="font-bold">$ {listing.price}</div>
-        <div className="flex gap-2 items-center">
-          <FaStar className="text-yellow-400" /> 4.5 (8)
-        </div>
       </div>
     </div>
     </Link>

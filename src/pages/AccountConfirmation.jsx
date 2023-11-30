@@ -1,16 +1,18 @@
 import { useEffect} from "react";
 import Image from "../assets/signupimg.png";
-import { Link } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const AccountConfirmation = ({ apiCall }) => {
     // Extracting tokenId from URL parameter
-    const tokenId = new URLSearchParams(window.location.search).get("tokenId");
+    const {id} = useParams()
 
     useEffect(() => {
-        // Check if tokenId is truthy before making the API call
-        if (tokenId) {
+        console.log("page loaded")
+        // Check if tokenId is there before making the API call
+        if (id !== '') {
+            console.log("found token")
             apiCall(
-                `auth/confirm-account?tokenId=${tokenId}`,
+                `/auth/register/confirm-account/?tokenId=${id}`,
                 "GET",
                 { "Content-Type": "application/json" },
                 {},
@@ -27,7 +29,7 @@ const AccountConfirmation = ({ apiCall }) => {
                 }
             );
         }
-    }, [apiCall, tokenId]); // Include tokenId as a dependency
+    }, []);
 
     return (
         <div className="w-full h-screen flex flex-col items-center ">

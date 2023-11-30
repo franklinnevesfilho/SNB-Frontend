@@ -26,17 +26,16 @@ const TwoAuthPage = ({ apiCall}) => {
             { 'Content-Type': 'application/json' },
             { },
             (r) => {
-                console.log(r);
-                if(r.node.errors.length === 0) {
-                    localStorage.setItem("JWT", r.node.jwt);
+                console.log(r.errors.length);
+                if(r.errors.length === 0){
+                    localStorage.setItem("JWT", r.node);
                     navigate("/home");
                 }
             },
             (e) => {
                 console.log(e);
-                setHasErrors(true);
-                // Handle unsuccessful OTP verification
-                // Example: Display an error message, reset OTP field, etc.
+                console.log("Server error")
+                navigate("/")
             }
         );
     };

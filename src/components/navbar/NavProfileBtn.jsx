@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 
 const NavProfileBtn = ({ isOpened }) => {
     const[jwt] = useState(localStorage.getItem('JWT') || '')
-    const [navigate] = useState(useNavigate())
+    const navigate = useNavigate()
     const logout = () => {
             localStorage.removeItem('JWT')
     }

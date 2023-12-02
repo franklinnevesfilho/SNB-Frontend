@@ -4,16 +4,13 @@ import { BiSolidLock, BiUserCircle } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import {Link, useNavigate} from "react-router-dom";
 
-const LoginPage = ({apiCall}) => {
+const Login = ({apiCall}) => {
   const navigate = useNavigate();
-  const [response, setResponse] = useState({
-    node:"",
-    errors:[]
-  })
   const [togglePass, setTogglePass] = useState(false);
+  const [errors, setErrors] = useState([]);
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
-  const [hasErrors, setHasErrors] = useState(response.node.length > 0)
+  const [hasErrors, setHasErrors] = useState(false)
 
   const clearCredentials = () => {
     setEmail("")
@@ -30,29 +27,27 @@ const LoginPage = ({apiCall}) => {
         { email, password },
         (r) => {
           console.log(r);
-          if(r.errors.length === 0){
-            let node = r.node;
-            let jwt = node.jwt;
 
-            localStorage.setItem("JWT", jwt);
-
-            if(node.twoFactorEnabled){
+          if(r.errors.length === 0 && r.node.jwt !== ""){
+            localStorage.setItem("JWT", r.node.jwt);
+            if(r.node.twoFactorEnabled){
                 navigate("/two-factor-auth")
             }else{
               navigate("/home");
             }
           }else{
             clearCredentials()
+            setErrors(r.errors)
           }
         },
         (e) => {
-          setResponse({node:"", errors:[e.message]})
+            console.log(e);
         }
         );
   }
   useEffect(() => {
-    setHasErrors(response.errors.length > 0)
-  }, [response]);
+    setHasErrors(errors.length > 0)
+  }, [errors])
   return (
     <div className="w-full h-screen flex flex-col items-center ">
       <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-full flex flex-col items-center gap-4">
@@ -130,4 +125,4 @@ const LoginPage = ({apiCall}) => {
   );
 };
 
-export default LoginPage;
+export default Login;

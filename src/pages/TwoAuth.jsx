@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {BiKey} from "react-icons/bi";
 import {Link, useNavigate} from "react-router-dom";
 
-const TwoAuthPage = ({ apiCall}) => {
+const TwoAuth = ({ apiCall}) => {
     const navigate = useNavigate();
     const [otp, setOtp] = useState("");
     const [hasErrors, setHasErrors] = useState(false); // Adjust this as needed
@@ -88,4 +88,4 @@ const TwoAuthPage = ({ apiCall}) => {
     );
 };
 
-export default TwoAuthPage;
+export default TwoAuth;

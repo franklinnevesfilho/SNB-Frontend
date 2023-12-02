@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar/Navbar.jsx";
-import { useNavigate } from "react-router-dom";
 
-const ProfilePage = ({ apiCall }) => {
+const Profile = ({ apiCall }) => {
     const [jwt] = useState(localStorage.getItem("JWT") || "");
     const [userData, setUserData] = useState({
         firstName: "John",
@@ -162,4 +161,4 @@ const ProfilePage = ({ apiCall }) => {
     );
 }
 
-export default ProfilePage;
+export default Profile;

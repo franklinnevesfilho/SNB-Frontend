@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 import QuestionCard from "../components/listing/QuestionCard.jsx";
 import AddToCart from "../components/checkout/AddToCart.jsx";
 
-const ViewItemPage = ({apiCall}) => {
+const ViewItem = ({apiCall}) => {
   const { itemId } = useParams();
   const [jwt] = useState(localStorage.getItem('JWT') || '')
   const [listing, setListing] = useState({
@@ -147,4 +147,4 @@ const ViewItemPage = ({apiCall}) => {
   );
 };
 
-export default ViewItemPage;
+export default ViewItem;

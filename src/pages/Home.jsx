@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react";
 import Navbar from "../components/navbar/Navbar.jsx";
 import Listing from "../components/listing/Listing.jsx";
 import {useNavigate} from "react-router-dom";
-import {list} from "postcss";
-import listing from "../components/listing/Listing.jsx";
 
-const HomePage = ({apiCall}) => {
+const Home = ({apiCall}) => {
     const navigate = useNavigate()
     const [jwt] = useState(localStorage.getItem('JWT') || '')
     const [listings, setListings] = useState([]);
@@ -28,8 +26,9 @@ const HomePage = ({apiCall}) => {
                 setFilteredListings(r.node)
             },
             (e) => {
-                alert("Something went wrong, logging out.")
+                console.log(e);
                 navigate("/")
+                alert("Something went wrong, logging out.")
             }
         );
     };
@@ -83,4 +82,4 @@ const HomePage = ({apiCall}) => {
   );
 }
 
-export default HomePage;
+export default Home;
